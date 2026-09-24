@@ -1,0 +1,26 @@
+appId: com.limpac.app
+productName: LimpaC
+directories:
+  output: dist
+  buildResources: build
+files:
+  - out/**
+  - package.json
+  - '!**/*.map'
+# koffi loads a native .node binary, which cannot be read from inside app.asar.
+asarUnpack:
+  - node_modules/koffi/**
+  - node_modules/@koromix/**
+win:
+  target:
+    - target: nsis
+      arch: [x64]
+  executableName: LimpaC
+  # The app never needs administrator rights; Windows prompts only inside
+  # uninstallers that the user chooses to open.
+  requestedExecutionLevel: asInvoker
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  artifactName: LimpaC-Setup-${version}.${ext}
